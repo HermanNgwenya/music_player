@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="/styles.css">
     <script src="https://kit.fontawesome.com/ca192b8d02.js" crossorigin="anonymous"></script>
 
-</head>
-<body>
+
+  </head>
+  <body>
     <div class="container">
         <div class="music-player">
             <nav>
@@ -37,9 +38,46 @@
             </div>
         </div>
 
-        <script src="./scripts.js" type="module" defer></script>
+       <script>
+                 
+let progress = document.getElementById("progress"); 
+let song = document.getElementById("song");
+let ctrlIcon = document.getElementById("ctrlIcon");
 
+ song.onloadedmetadata = function(){
+    progress.max = song.duration;
+    progress.value = song.currentTime;
+ }
+
+function playPause(){
+    if(ctrlIcon.classList.contains("fa-pause")){
+        song.pause();
+        ctrlIcon.classList.remove("fa-pause");
+        ctrlIcon.classList.add("fa-play");
+    }
+    else{
+        song.play();
+        ctrlIcon.classList.add("fa-pause");
+        ctrlIcon.classList.remove("fa-play");
+    }
+
+ }
+
+ if(song.play()){
+     setInterval(()=>{
+        progress.value = song.currentTime;
+     },500);
+ }
+
+ progress.onchange = function(){
+    song.play();
+    song.currentTime = progress.value;
+    ctrlIcon.classList.add("fa-pause");
+    ctrlIcon.classList.remove("fa-play");
+ }
+
+       </script>
 
     </div>
-</body>
+  </body>
 </html>
